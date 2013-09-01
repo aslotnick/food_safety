@@ -3,21 +3,44 @@
  <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script> 
 
 </head>
+
+<style type="text/css">
+
+</style>
 <body>
  <div id="map" style="height:400px"></div>
 
 <script>
-var map = L.map('map').setView([41.941186,-87.64217], 13);
+
+
+
+
+var map = L.map('map').setView([41.883173,-87.631227], 13);
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var marker1 = L.marker([41.941186,-87.64217]).addTo(map)
-marker1.bindPopup('status');
 
-marker.on('click', function (m){
-	m.openPopup();
-});
+var user_marker=L.marker([41.883173,-87.631227]).addTo(map);
+user_marker.bindPopup('Default Location').openPopup();
+
+
+function onLocate(e) {
+user_marker.setLatLng(e.latlng).addTo(map);
+user_marker.bindPopup('Your Location').openPopup();
+}
+function onLocateError(e){
+user_marker.setLatLng([41.841186,-87.64217]).addTo(map);
+user_marker.bindPopup('Default Location').openPopup();
+map.setView(user_marker.getLatLng());
+}
+
+map.locate({setView:true,maxZoom:16});
+map.on('locationfound',onLocate);
+map.on('locationerror',onLocateError);
+
+
+
 
 
  
