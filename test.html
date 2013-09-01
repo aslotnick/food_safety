@@ -12,6 +12,26 @@
 
 <script>
 
+function httpGet(theUrl)
+{
+var xmlHttp = null;
+
+xmlHttp = new XMLHttpRequest();
+xmlHttp.open( "GET", theUrl, false );
+xmlHttp.send( null );
+return xmlHttp.responseText;
+}
+
+function getInspections(lat,lng,radius){
+return eval(httpGet(
+"https://data.cityofchicago.org/resource/4ijn-s7e5.json?"+
+"$order=dba_name"+
+"&$select=dba_name,inspection_date,results,latitude,longitude"+
+"&$where=facility_type=%27Restaurant%27"+
+"AND%28results=%27Pass%27OR%20results=%27Fail%27%20OR%20results=%27Pass%20w/%20Conditions%27%29"+
+"AND%20within_circle%28location,"+lat+","+lng+","+radius+"%29"));
+
+}
 
 
 
@@ -25,10 +45,20 @@ var user_marker=L.marker([41.883173,-87.631227]).addTo(map);
 user_marker.bindPopup('Default Location').openPopup();
 
 
+
+
 function onLocate(e) {
 user_marker.setLatLng(e.latlng).addTo(map);
 user_marker.bindPopup('Your Location').openPopup();
+var i = getInspections(user_marker.getLatLng().lat,user_marker.getLatLng().lng,200);
+console.log(i);
+for(r in i){
+L.marker([i[r].latitude,i[r].longitude]).addTo(map).bindPopup(i[r].dba_name);
 }
+
+
+}
+
 function onLocateError(e){
 user_marker.setLatLng([41.841186,-87.64217]).addTo(map);
 user_marker.bindPopup('Default Location').openPopup();
@@ -38,6 +68,9 @@ map.setView(user_marker.getLatLng());
 map.locate({setView:true,maxZoom:16});
 map.on('locationfound',onLocate);
 map.on('locationerror',onLocateError);
+
+
+
 
 
 
