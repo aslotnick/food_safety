@@ -39,9 +39,17 @@ return eval(httpGet(
 
 
 var map = L.map('map').setView([41.883173,-87.631227], 13);
+/*
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+*/
+
+L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors| <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
+}).addTo(map);
+
+
 
 
 var user_marker=L.marker([41.883173,-87.631227]).addTo(map);
@@ -92,5 +100,5 @@ map.on('locationerror',onLocateError);
 
  
 </script>
-
 </body>
+
