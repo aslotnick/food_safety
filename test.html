@@ -6,9 +6,12 @@
 
 <style type="text/css">
 
+
+
+
 </style>
 <body>
- <div id="map" style="height:400px"></div>
+ <div id="map" style="height:100%"></div>
 
 <script>
 
@@ -42,7 +45,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 
 var user_marker=L.marker([41.883173,-87.631227]).addTo(map);
-user_marker.bindPopup('Default Location').openPopup();
+user_marker.bindPopup('Please Provide Your Location').openPopup();
 
 
 
@@ -57,7 +60,7 @@ var text =''
 for(r in i){
     var i_date = new Date(i[r].inspection_date);
     if(dba_name==i[r].dba_name){
-    text=text+"<br>"+i_date.toLocaleDateString()+" "+i[r].results
+    text=text+"<br>"+i_date.toLocaleDateString('en-US')+" "+i[r].results
     }
     else
     {
@@ -72,7 +75,7 @@ for(r in i){
 
 function onLocateError(e){
 user_marker.setLatLng([41.841186,-87.64217]).addTo(map);
-user_marker.bindPopup('Default Location').openPopup();
+user_marker.bindPopup('Default').openPopup();
 map.setView(user_marker.getLatLng());
 }
 
