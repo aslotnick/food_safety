@@ -46,7 +46,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 */
 
 L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors| <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors| <a href = "https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5">Chicago Data Portal</a> |<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
 }).addTo(map);
 
 
@@ -68,12 +68,12 @@ var text =''
 for(r in i){
     var i_date = new Date(i[r].inspection_date);
     if(dba_name==i[r].dba_name){
-    text=text+"<br>"+(i_date.getMonth()+1)+"-"+i_date.getDate()+"-"+i_date.getFullYear()+" "+i[r].results
+    text=text+"<br>"+i_date.toJSON().substring(0,10)+" "+i[r].results
     }
     else
     {
     dba_name=i[r].dba_name
-    text=(i_date.getMonth()+1)+"-"+i_date.getDate()+"-"+i_date.getFullYear()+" "+i[r].results
+    text=(i_date.toJSON().substring(0,10))+" "+i[r].results
     }
     L.marker([i[r].latitude,i[r].longitude]).addTo(map).bindPopup(dba_name+"<br>"+text);
 }
