@@ -1,1 +1,3 @@
-Food safety stuff
+An extremely simple browser-based tool. Uses leaflet.js to display a map. 
+
+Provide your location and a query is run against the city of Chicago open data portal to return the restaurant inspection results for nearb restaurants.
